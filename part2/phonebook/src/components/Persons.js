@@ -1,8 +1,11 @@
-const Persons = ({ personsToShow }) =>
-  personsToShow.map((person) => (
-    <div key={person.name}>
-      {person.name} {person.number}
-    </div>
-  ));
+const Persons = ({ personsToShow, handleDelete }) =>
+  personsToShow.map((person) => {
+    return (
+      <div key={person.id}>
+        {person.name} {person.number}{" "}
+        <button onClick={() => handleDelete(person.id)}>delete</button>
+      </div>
+    );
+  });
 
 export default Persons;
