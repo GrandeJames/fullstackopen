@@ -3,6 +3,7 @@ import PersonForm from "./components/PersonForm";
 import Persons from "./components/Persons";
 import { useEffect, useState } from "react";
 import personsService from "./services/persons";
+import Notification from "./components/Notification";
 
 const App = () => {
   useEffect(() => {
@@ -16,6 +17,8 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [showAll, setShowAll] = useState(true);
   const [search, setSearch] = useState("");
+  const [notificationMessage, setNotificationMessage] = useState(null);
+  const [success, setSuccess] = useState(true);
 
   const personsToShow = showAll
     ? persons
@@ -33,12 +36,20 @@ const App = () => {
       ) {
         const person = persons.find((person) => person.name === newName);
         const newPerson = { ...person, number: newNumber };
-        personsService.update(person.id, newPerson).then((data) => {
-          console.log(data);
-          setPersons(
-            persons.map((person) => (person.name === newName ? data : person))
-          );
-        });
+        personsService
+          .update(person.id, newPerson)
+          .then((data) => {
+            setPersons(
+              persons.map((person) => (person.name === newName ? data : person))
+            );
+          })
+          .catch((error) => {
+            setSuccess(false);
+            setNotificationMessage(
+              `Information of ${person.name} has already been removed from the server`
+            );
+            setTimeout(() => setNotificationMessage(null), 5000);
+          });
       }
     } else {
       const newPerson = { name: newName, number: newNumber };
@@ -47,6 +58,9 @@ const App = () => {
         setPersons(persons.concat([data]));
         setNewName("");
         setNewNumber("");
+        setSuccess(true);
+        setNotificationMessage(`Added ${data.name}`);
+        setTimeout(() => setNotificationMessage(null), 5000);
       });
     }
   };
@@ -77,6 +91,10 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification
+        message={notificationMessage}
+        sucess={success}
+      ></Notification>
       <Filter handleSearchInput={handleSearchInput}></Filter>
       <h3>Add a new</h3>
       <PersonForm
