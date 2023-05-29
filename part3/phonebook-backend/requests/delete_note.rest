@@ -1,1 +1,1 @@
-DELETE http://localhost:3001/api/persons/2
+DELETE https://delicate-leaf-1250.fly.dev/api/persons/2
