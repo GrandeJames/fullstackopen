@@ -35,7 +35,7 @@ const App = () => {
         )
       ) {
         const person = persons.find((person) => person.name === newName);
-        const newPerson = { ...person, number: newNumber };
+        const newPerson = { ...person, phoneNumber: newNumber };
         personsService
           .update(person.id, newPerson)
           .then((data) => {
@@ -43,7 +43,7 @@ const App = () => {
               persons.map((person) => (person.name === newName ? data : person))
             );
           })
-          .catch((error) => {
+          .catch(() => {
             setSuccess(false);
             setNotificationMessage(
               `Information of ${person.name} has already been removed from the server`
@@ -52,7 +52,7 @@ const App = () => {
           });
       }
     } else {
-      const newPerson = { name: newName, number: newNumber };
+      const newPerson = { name: newName, phoneNumber: newNumber };
 
       personsService.create(newPerson).then((data) => {
         setPersons(persons.concat([data]));
@@ -68,17 +68,9 @@ const App = () => {
   const handleDelete = (id) => {
     const personToRemove = persons.find((person) => person.id === id);
     if (window.confirm(`Delete ${personToRemove.name} ?`)) {
-      personsService
-        .remove(id)
-        .then((response) => {
-          setPersons(persons.filter((person) => person.id !== id));
-        })
-        .catch((error) => {
-          alert(
-            `the person ${personToRemove.name} was already deleted from the server`
-          );
-          setPersons(persons.filter((person) => person.id !== id));
-        });
+      personsService.remove(id).then((response) => {
+        setPersons(persons.filter((person) => person.id !== id));
+      });
     }
   };
 
