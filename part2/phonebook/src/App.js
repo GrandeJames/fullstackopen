@@ -54,14 +54,21 @@ const App = () => {
     } else {
       const newPerson = { name: newName, phoneNumber: newNumber };
 
-      personsService.create(newPerson).then((data) => {
-        setPersons(persons.concat([data]));
-        setNewName("");
-        setNewNumber("");
-        setSuccess(true);
-        setNotificationMessage(`Added ${data.name}`);
-        setTimeout(() => setNotificationMessage(null), 5000);
-      });
+      personsService
+        .create(newPerson)
+        .then((data) => {
+          setPersons(persons.concat([data]));
+          setNewName("");
+          setNewNumber("");
+          setSuccess(true);
+          setNotificationMessage(`Added ${data.name}`);
+          setTimeout(() => setNotificationMessage(null), 5000);
+        })
+        .catch((error) => {
+          console.log(error.response.data.error);
+          setNotificationMessage(error.response.data.error);
+          setTimeout(() => setNotificationMessage(null), 5000);
+        });
     }
   };
 
