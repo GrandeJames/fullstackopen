@@ -100,3 +100,18 @@ describe('most likes', () => {
     expect(result).toBe(undefined);
   });
 });
+
+describe('top blogger', () => {
+  test('of multiple blogs', () => {
+    const result = listHelper.mostBlogs(blogs);
+    expect(result).toEqual({
+      author: 'Robert C. Martin',
+      blogs: 3
+    });
+  });
+
+  test('of empty blog list', () => {
+    const result = listHelper.mostBlogs([]);
+    expect(result).toBe(undefined);
+  });
+});
