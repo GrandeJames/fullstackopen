@@ -84,3 +84,19 @@ describe('total likes', () => {
   });
 });
 
+describe('most likes', () => {
+  test('of multiple blogs', () => {
+    const result = listHelper.favoriteBlog(blogs);
+    const expectedResult = {
+      title: 'Canonical string reduction',
+      author: 'Edsger W. Dijkstra',
+      likes: 12
+    };
+    expect(result).toEqual(expectedResult);
+  });
+
+  test('of empty blog list', () => {
+    const result = listHelper.favoriteBlog([]);
+    expect(result).toBe(undefined);
+  });
+});

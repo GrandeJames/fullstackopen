@@ -10,7 +10,22 @@ const totalLikes = (blogs) => {
     : 0;
 };
 
+const favoriteBlog = (blogs) => {
+  if (!blogs.length) {
+    return undefined;
+  }
+  const mostLikedBlog = blogs.reduce((currentMostLikedBlog, currentBlog) => {
+    if (currentBlog.likes > currentMostLikedBlog.likes) {
+      return currentBlog;
+    }
+    return currentMostLikedBlog;
+  });
+
+  return { title: mostLikedBlog.title, author: mostLikedBlog.author, likes: mostLikedBlog.likes };
+};
+
 module.exports = {
   dummy,
   totalLikes,
+  favoriteBlog
 };
