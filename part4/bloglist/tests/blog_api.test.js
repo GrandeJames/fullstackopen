@@ -27,6 +27,14 @@ test('blogs are returned as JSON and is the correct amount', async () => {
   expect(response.body).toHaveLength(helper.initialBlogs.length);
 });
 
+test('blogs have an id property', async () => {
+  const blogs = await helper.blogsInDB();
+  // eslint-disable-next-line no-restricted-syntax
+  for (const blog of blogs) {
+    expect(blog.id).toBeDefined();
+  }
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });

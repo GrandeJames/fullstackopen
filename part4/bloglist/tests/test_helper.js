@@ -5,4 +5,9 @@ const initialBlogs = [
   { title: 'title2', author: 'author2', url: 'url2', likes: 2 }
 ];
 
-module.exports = { initialBlogs };
+const blogsInDB = async () => {
+  const blogs = await Blog.find({});
+  return blogs.map((blog) => blog.toJSON());
+};
+
+module.exports = { initialBlogs, blogsInDB };
