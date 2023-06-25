@@ -35,7 +35,7 @@ test('blogs have an id property', async () => {
   }
 });
 
-test('should insert a blog object to the database', async () => {
+test('should insert a blog to the database', async () => {
   const blogToAdd = { title: 'blogToAdd', author: 'author', url: 'url', likes: 3 };
   await api
     .post('/api/blogs')
@@ -45,6 +45,9 @@ test('should insert a blog object to the database', async () => {
 
   const blogsInDB = await helper.blogsInDB();
   expect(blogsInDB).toHaveLength(helper.initialBlogs.length + 1);
+
+  const titles = blogsInDB.map((blog) => blog.title);
+  expect(titles).toContain(blogToAdd.title);
 });
 
 afterAll(async () => {
