@@ -72,6 +72,22 @@ test('should have title and url property in blog', async () => {
   const response = await api.post('/api/blogs').send(blogToAdd).expect(400);
 });
 
+describe('viewing a specific blog', () => {
+  test('succeeds with valid id', async () => {
+    const blogs = await helper.blogsInDB();
+    const blogToDelete = blogs[0];
+
+    await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204);
+
+    const blogsAtEnd = await helper.blogsInDB();
+    expect(blogsAtEnd).toHaveLength(helper.initialBlogs.length - 1);
+
+    const urls = blogsAtEnd.map((blog) => blog.url);
+    const blogToDeleteUrl = blogToDelete.url;
+    expect(urls).not.toContain(blogToDeleteUrl);
+  });
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });
