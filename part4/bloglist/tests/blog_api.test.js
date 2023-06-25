@@ -50,6 +50,22 @@ test('should insert a blog to the database', async () => {
   expect(titles).toContain(blogToAdd.title);
 });
 
+test('should have likes property in blog otherwise default to 0', async () => {
+  const blogToAdd = { title: 'blogToAdd', author: 'author', url: 'url' };
+
+  const response = await api
+    .post('/api/blogs')
+    .send(blogToAdd)
+    .expect(201)
+    .expect('Content-Type', /application\/json/);
+
+  if (response.body.likes) {
+    expect(response.body.likes).toBeDefined();
+  } else {
+    expect(response.body.likes).toBe(0);
+  }
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });
