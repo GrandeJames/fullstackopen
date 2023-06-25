@@ -66,6 +66,12 @@ test('should have likes property in blog otherwise default to 0', async () => {
   }
 });
 
+test('should have title and url property in blog', async () => {
+  const blogToAdd = { author: 'author', likes: 10 };
+
+  const response = await api.post('/api/blogs').send(blogToAdd).expect(400);
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });
