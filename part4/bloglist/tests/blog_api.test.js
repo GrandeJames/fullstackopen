@@ -88,6 +88,18 @@ describe('viewing a specific blog', () => {
   });
 });
 
+test('should update blog with valid id', async () => {
+  const blogs = await helper.blogsInDB();
+  const blogToUpdate = blogs[0];
+  const updatedBlog = { title: 'blogToUpdate', author: 'author', url: 'url', likes: -1 };
+
+  await api.put(`/api/blogs/${blogToUpdate.id}`).send(updatedBlog).expect(200);
+
+  const updatedBlogs = await helper.blogsInDB();
+  const likes = updatedBlogs.map((blog) => blog.likes);
+  expect(likes).toContain(updatedBlog.likes);
+});
+
 afterAll(async () => {
   await mongoose.connection.close();
 });
