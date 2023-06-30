@@ -12,6 +12,9 @@
   },
   "rules": {
     "no-console": "off",
-    "no-unused-vars": "off"
+    "no-unused-vars": "off",
+    "no-param-reassign": "off",
+    "no-underscore-dangle": "off",
+    "consistent-return": "off"
   }
 }
