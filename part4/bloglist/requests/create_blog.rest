@@ -1,8 +1,9 @@
 POST http://localhost:3001/api/blogs
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRva2VuIiwiaWQiOiI2NGE3MTdmZGI4NmViZjJmM2FiZTNhYmUiLCJpYXQiOjE2ODg2NzI0NDMsImV4cCI6MTY4ODY3NjA0M30.xFolqlSb9k1stILCkfPGfVVre-r4RGHX118OCWAQTc8
 
 {
-    "url": "urlaazaawawadaa",
-    "title": "title",
-    "likes": 20
+    "url": "testcraweate",
+    "title": "tiatle",
+    "likes": 220
 }
