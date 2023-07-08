@@ -1,10 +1,9 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpZCI6IjY0YTcwODg2YjMxNDZjMDExMTNhNmRlZCIsImlhdCI6MTY4ODc3NjE3OSwiZXhwIjoxNjg4Nzc5Nzc5fQ.umh9J7hcvq_sljUhEgQb1ex74tlH4zZIRmvzKc5OrkY
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpZCI6IjY0YTcwODg2YjMxNDZjMDExMTNhNmRlZCIsImlhdCI6MTY4ODgwNDY0NSwiZXhwIjoxNjg4ODA4MjQ1fQ.RjPa3xlDBcvxjqUEhDIZOyDmUGFu_KxXMSk-Shdm7_g
 
 {
-    "url": "eadw",
-    "title": "tiatle",
-    "author": "authorname",
-    "likes": 220
+    "title": "twaawawwdw",
+    "url": "eadwawwwaawdawaw",
+    "author": "awdoih"
 }

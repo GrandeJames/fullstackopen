@@ -3,6 +3,7 @@ import blogService from "./services/blogs";
 import loginService from "./services/login";
 import Blogs from "./components/Blogs";
 import Login from "./components/Login";
+import CreateBlog from "./components/CreateBlog";
 
 /**
  * TODO
@@ -21,9 +22,11 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const loggedUser = window.localStorage.getItem("loggedUser");
-    if (loggedUser) {
-      setUser(JSON.parse(loggedUser));
+    const loggedUserJSON = window.localStorage.getItem("loggedUser");
+    if (loggedUserJSON) {
+      const loggedUser = JSON.parse(loggedUserJSON);
+      setUser(loggedUser);
+      blogService.setToken(loggedUser.token);
     }
   }, []);
 
@@ -41,6 +44,7 @@ const App = () => {
       const response = await loginService.login({ username, password }); // server responds with token, username, and name
 
       window.localStorage.setItem("loggedUser", JSON.stringify(response));
+      blogService.setToken(response.token);
       setUser(response);
       setUsername("");
       setPassword("");
@@ -52,6 +56,10 @@ const App = () => {
   const handleLogout = () => {
     window.localStorage.removeItem("loggedUser");
     setUser(null);
+  };
+
+  const addBlog = (newBlog) => {
+    setBlogs(blogs.concat(newBlog));
   };
 
   return (
@@ -66,7 +74,10 @@ const App = () => {
         ></Login>
       )}
       {user && (
-        <Blogs blogs={blogs} user={user} handleLogout={handleLogout}></Blogs>
+        <>
+          <Blogs blogs={blogs} user={user} handleLogout={handleLogout}></Blogs>
+          <CreateBlog addBlog={addBlog}></CreateBlog>
+        </>
       )}
     </>
   );
