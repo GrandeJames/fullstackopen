@@ -11,6 +11,7 @@ const Notification = ({ notification }) => {
         alignItems: "center",
         padding: "5px",
         color: `${success ? "green" : "red"}`,
+        margin: "5px",
       }}
     >
       <p>{message}</p>

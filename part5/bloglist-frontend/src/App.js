@@ -1,14 +1,11 @@
 import { useState, useEffect } from "react";
 import blogService from "./services/blogs";
-import loginService from "./services/login";
 import Blogs from "./components/Blogs";
 import Login from "./components/Login";
 import CreateBlog from "./components/CreateBlog";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
   const [notification, setNotification] = useState(null);
 
@@ -25,39 +22,7 @@ const App = () => {
     }
   }, []);
 
-  const handleUsernameChange = (username) => {
-    setUsername(username);
-  };
-
-  const handlePasswordChange = (password) => {
-    setPassword(password);
-  };
-
-  const handleLogin = async (event) => {
-    event.preventDefault();
-    try {
-      const response = await loginService.login({ username, password }); // server responds with token, username, and name
-
-      window.localStorage.setItem("loggedUser", JSON.stringify(response));
-      blogService.setToken(response.token);
-      setUser(response);
-      setUsername("");
-      setPassword("");
-    } catch (error) {
-      const notification = {
-        message: "wrong username or password",
-        success: false,
-      };
-      handleNotification(notification);
-    }
-  };
-
-  const handleLogout = () => {
-    window.localStorage.removeItem("loggedUser");
-    setUser(null);
-  };
-
-  const addBlog = (newBlog) => {
+  const handleAddBlog = (newBlog) => {
     setBlogs(blogs.concat(newBlog));
   };
 
@@ -69,31 +34,31 @@ const App = () => {
     }, 5000);
   };
 
+  const handleUser = (newUser) => {
+    setUser(newUser);
+  };
+
   return (
     <>
-      {!user && (
-        <Login
-          username={username}
-          handleUsernameChange={handleUsernameChange}
-          password={password}
-          handlePasswordChange={handlePasswordChange}
-          handleLogin={handleLogin}
-          notification={notification}
-        ></Login>
-      )}
-      {user && (
+      {user ? (
         <>
           <Blogs
             blogs={blogs}
             user={user}
-            handleLogout={handleLogout}
             notification={notification}
+            handleUser={handleUser}
           ></Blogs>
           <CreateBlog
-            addBlog={addBlog}
+            addBlog={handleAddBlog}
             handleNotification={handleNotification}
           ></CreateBlog>
         </>
+      ) : (
+        <Login
+          notification={notification}
+          handleNotification={handleNotification}
+          handleUser={handleUser}
+        ></Login>
       )}
     </>
   );

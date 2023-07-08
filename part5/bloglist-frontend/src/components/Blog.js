@@ -1,5 +1,5 @@
 const Blog = ({ blog }) => (
-  <div>
+  <div key={blog.id}>
     {blog.title} {blog.author}
   </div>
 );

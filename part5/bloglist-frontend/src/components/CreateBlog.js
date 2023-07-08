@@ -10,25 +10,26 @@ const CreateBlog = ({ addBlog, handleNotification }) => {
     event.preventDefault();
     try {
       const newBlog = { title, author, url };
+
       await blogService.create(newBlog);
       addBlog(newBlog);
-
-      setTitle("");
-      setAuthor("");
-      setUrl("");
-
-      const notification = {
+      resetCreateBlogInputs();
+      handleNotification({
         message: `a new blog ${newBlog.title} by ${newBlog.author} added`,
         success: true,
-      };
-      handleNotification(notification);
+      });
     } catch (error) {
-      const notification = {
+      handleNotification({
         message: `title and url are required`,
         success: false,
-      };
-      handleNotification(notification);
+      });
     }
+  };
+
+  const resetCreateBlogInputs = () => {
+    setTitle("");
+    setAuthor("");
+    setUrl("");
   };
 
   return (
@@ -40,7 +41,7 @@ const CreateBlog = ({ addBlog, handleNotification }) => {
           <input
             type="text"
             value={title}
-            onChange={(event) => setTitle(event.target.value)}
+            onChange={({ target }) => setTitle(target.value)}
           ></input>
         </div>
         <div>
@@ -48,7 +49,7 @@ const CreateBlog = ({ addBlog, handleNotification }) => {
           <input
             type="text"
             value={author}
-            onChange={(event) => setAuthor(event.target.value)}
+            onChange={({ target }) => setAuthor(target.value)}
           ></input>
         </div>
         <div>
@@ -56,7 +57,7 @@ const CreateBlog = ({ addBlog, handleNotification }) => {
           <input
             type="text"
             value={url}
-            onChange={(event) => setUrl(event.target.value)}
+            onChange={({ target }) => setUrl(target.value)}
           ></input>
         </div>
         <button type="submit">create</button>
