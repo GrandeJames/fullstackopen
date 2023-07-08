@@ -5,17 +5,12 @@ import Blogs from "./components/Blogs";
 import Login from "./components/Login";
 import CreateBlog from "./components/CreateBlog";
 
-/**
- * TODO
- * Create notification
- */
-
 const App = () => {
   const [blogs, setBlogs] = useState([]);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [user, setUser] = useState(null);
-  // const [alertMessage, setAlertMessage] = useState(null);
+  const [notification, setNotification] = useState(null);
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -49,7 +44,11 @@ const App = () => {
       setUsername("");
       setPassword("");
     } catch (error) {
-      console.log("invalid credential"); // TODO: replace with error message
+      const notification = {
+        message: "wrong username or password",
+        success: false,
+      };
+      handleNotification(notification);
     }
   };
 
@@ -62,6 +61,14 @@ const App = () => {
     setBlogs(blogs.concat(newBlog));
   };
 
+  const handleNotification = (newNotification) => {
+    setNotification(newNotification);
+
+    setTimeout(() => {
+      setNotification(null);
+    }, 5000);
+  };
+
   return (
     <>
       {!user && (
@@ -71,12 +78,21 @@ const App = () => {
           password={password}
           handlePasswordChange={handlePasswordChange}
           handleLogin={handleLogin}
+          notification={notification}
         ></Login>
       )}
       {user && (
         <>
-          <Blogs blogs={blogs} user={user} handleLogout={handleLogout}></Blogs>
-          <CreateBlog addBlog={addBlog}></CreateBlog>
+          <Blogs
+            blogs={blogs}
+            user={user}
+            handleLogout={handleLogout}
+            notification={notification}
+          ></Blogs>
+          <CreateBlog
+            addBlog={addBlog}
+            handleNotification={handleNotification}
+          ></CreateBlog>
         </>
       )}
     </>

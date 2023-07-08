@@ -19,8 +19,8 @@ const getTokenFrom = (request) => {
 blogsRouter.post('/', async (request, response) => {
   const { body } = request;
 
-  if (!body.title && !body.url) {
-    return response.status(400).end();
+  if (!body.title || !body.url) {
+    return response.status(400).json({ error: 'missing fields' });
   }
 
   const decodedToken = jwt.verify(getTokenFrom(request), process.env.SECRET);

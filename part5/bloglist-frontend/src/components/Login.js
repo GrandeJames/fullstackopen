@@ -1,7 +1,12 @@
+import Notification from "./Notification";
+
 const Login = (props) => {
   return (
     <div>
       <h2>log in to application</h2>
+      {props.notification && (
+        <Notification notification={props.notification}></Notification>
+      )}
       <form onSubmit={props.handleLogin}>
         <div>
           username
