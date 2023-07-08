@@ -1,9 +1,10 @@
-POST http://localhost:3001/api/blogs
+POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRva2VuIiwiaWQiOiI2NGE3MTdmZGI4NmViZjJmM2FiZTNhYmUiLCJpYXQiOjE2ODg2NzI0NDMsImV4cCI6MTY4ODY3NjA0M30.xFolqlSb9k1stILCkfPGfVVre-r4RGHX118OCWAQTc8
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRlc3QiLCJpZCI6IjY0YTcwODg2YjMxNDZjMDExMTNhNmRlZCIsImlhdCI6MTY4ODc3NjE3OSwiZXhwIjoxNjg4Nzc5Nzc5fQ.umh9J7hcvq_sljUhEgQb1ex74tlH4zZIRmvzKc5OrkY
 
 {
-    "url": "testcraweate",
+    "url": "eadw",
     "title": "tiatle",
+    "author": "authorname",
     "likes": 220
 }
