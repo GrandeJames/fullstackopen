@@ -1,7 +1,7 @@
 import { useState } from "react";
 import blogService from "../services/blogs";
 
-const CreateBlog = ({ addBlog, handleNotification }) => {
+const CreateBlog = ({ addBlog, handleNotification, toggleVisibility }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setUrl] = useState("");
@@ -18,6 +18,7 @@ const CreateBlog = ({ addBlog, handleNotification }) => {
         message: `a new blog ${newBlog.title} by ${newBlog.author} added`,
         success: true,
       });
+      toggleVisibility();
     } catch (error) {
       handleNotification({
         message: `title and url are required`,

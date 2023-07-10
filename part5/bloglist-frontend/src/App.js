@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import blogService from "./services/blogs";
 import Blogs from "./components/Blogs";
 import Login from "./components/Login";
 import CreateBlog from "./components/CreateBlog";
+import Togglable from "./components/Togglable";
 
 const App = () => {
   const [blogs, setBlogs] = useState([]);
@@ -38,6 +39,8 @@ const App = () => {
     setUser(newUser);
   };
 
+  const addBlogRef = useRef();
+
   return (
     <>
       {user ? (
@@ -48,10 +51,13 @@ const App = () => {
             notification={notification}
             handleUser={handleUser}
           ></Blogs>
-          <CreateBlog
-            addBlog={handleAddBlog}
-            handleNotification={handleNotification}
-          ></CreateBlog>
+          <Togglable buttonLabel="add blog" ref={addBlogRef}>
+            <CreateBlog
+              toggleVisibility={() => addBlogRef.current.toggleVisibility()}
+              addBlog={handleAddBlog}
+              handleNotification={handleNotification}
+            ></CreateBlog>
+          </Togglable>
         </>
       ) : (
         <Login

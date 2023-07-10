@@ -32,6 +32,7 @@ describe('GET /api/blogs', () => {
 });
 
 describe('POST /api/blogs', () => {
+  // TODO: UPDATE to work. Need to use token.
   test('should insert a blog to the database', async () => {
     const blogToAdd = { title: 'blogToAdd', author: 'author', url: 'url', likes: 3 };
     await api
@@ -47,6 +48,7 @@ describe('POST /api/blogs', () => {
     expect(titles).toContain(blogToAdd.title);
   });
 
+  // TODO: UPDATE to work. Need to use token.
   test('should have likes property in blog otherwise default to 0', async () => {
     const blogToAdd = { title: 'blogToAdd', author: 'author', url: 'url' };
 
