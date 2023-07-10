@@ -21,7 +21,7 @@ const CreateBlogForm = ({ addBlog, handleNotification, toggleVisibility }) => {
       toggleVisibility();
     } catch (error) {
       handleNotification({
-        message: `title and url are required`,
+        message: `Unable to create blog`,
         success: false,
       });
     }
