@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import blogService from "./services/blogs";
 import Blogs from "./components/Blogs";
 import Login from "./components/Login";
-import CreateBlog from "./components/CreateBlog";
+import CreateBlogForm from "./components/CreateBlogForm";
 import Togglable from "./components/Togglable";
 
 const App = () => {
@@ -52,11 +52,11 @@ const App = () => {
             handleUser={handleUser}
           ></Blogs>
           <Togglable buttonLabel="add blog" ref={addBlogRef}>
-            <CreateBlog
+            <CreateBlogForm
               toggleVisibility={() => addBlogRef.current.toggleVisibility()}
               addBlog={handleAddBlog}
               handleNotification={handleNotification}
-            ></CreateBlog>
+            ></CreateBlogForm>
           </Togglable>
         </>
       ) : (

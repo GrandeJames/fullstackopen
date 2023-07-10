@@ -1,19 +1,19 @@
 import { useState } from "react";
 import blogService from "../services/blogs";
 
-const CreateBlog = ({ addBlog, handleNotification, toggleVisibility }) => {
+const CreateBlogForm = ({ addBlog, handleNotification, toggleVisibility }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setUrl] = useState("");
 
-  const handleBlogCreate = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const newBlog = { title, author, url };
 
       await blogService.create(newBlog);
       addBlog(newBlog);
-      resetCreateBlogInputs();
+      resetInputs();
       handleNotification({
         message: `a new blog ${newBlog.title} by ${newBlog.author} added`,
         success: true,
@@ -27,7 +27,7 @@ const CreateBlog = ({ addBlog, handleNotification, toggleVisibility }) => {
     }
   };
 
-  const resetCreateBlogInputs = () => {
+  const resetInputs = () => {
     setTitle("");
     setAuthor("");
     setUrl("");
@@ -36,30 +36,36 @@ const CreateBlog = ({ addBlog, handleNotification, toggleVisibility }) => {
   return (
     <div>
       <h2>create new</h2>
-      <form onSubmit={(event) => handleBlogCreate(event)}>
+      <form onSubmit={handleSubmit}>
         <div>
-          title:
-          <input
-            type="text"
-            value={title}
-            onChange={({ target }) => setTitle(target.value)}
-          ></input>
+          <label>
+            title:
+            <input
+              type="text"
+              value={title}
+              onChange={({ target }) => setTitle(target.value)}
+            ></input>
+          </label>
         </div>
         <div>
-          author:
-          <input
-            type="text"
-            value={author}
-            onChange={({ target }) => setAuthor(target.value)}
-          ></input>
+          <label>
+            author:
+            <input
+              type="text"
+              value={author}
+              onChange={({ target }) => setAuthor(target.value)}
+            ></input>
+          </label>
         </div>
         <div>
-          url:
-          <input
-            type="text"
-            value={url}
-            onChange={({ target }) => setUrl(target.value)}
-          ></input>
+          <label>
+            url:
+            <input
+              type="text"
+              value={url}
+              onChange={({ target }) => setUrl(target.value)}
+            ></input>
+          </label>
         </div>
         <button type="submit">create</button>
       </form>
@@ -67,4 +73,4 @@ const CreateBlog = ({ addBlog, handleNotification, toggleVisibility }) => {
   );
 };
 
-export default CreateBlog;
+export default CreateBlogForm;
