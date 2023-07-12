@@ -7,9 +7,9 @@ const setToken = (newToken) => {
   token = `Bearer ${newToken}`;
 };
 
-const getAll = () => {
-  const request = axios.get(baseUrl);
-  return request.then((response) => response.data);
+const getAll = async () => {
+  const response = await axios.get(baseUrl);
+  return response.data;
 };
 
 const create = async (blog) => {
@@ -18,5 +18,17 @@ const create = async (blog) => {
   return response.data;
 };
 
+const update = async (blog) => {
+  const newBlog = {
+    user: blog.user.id,
+    title: blog.title,
+    author: blog.author,
+    likes: blog.likes,
+  };
+
+  const response = await axios.put(`${baseUrl}/${blog.id}`, newBlog);
+  return response.data;
+};
+
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAll, create, setToken };
+export default { getAll, create, setToken, update };

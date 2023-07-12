@@ -21,6 +21,10 @@ const Blogs = ({ handleUser, user, notification, handleNotification }) => {
     setBlogs(blogs.concat(newBlog));
   };
 
+  const updateBlog = (newBlog) => {
+    setBlogs(blogs.map((blog) => (blog.id === newBlog.id ? newBlog : blog)));
+  };
+
   const addBlogRef = useRef();
   return (
     <div>
@@ -43,7 +47,7 @@ const Blogs = ({ handleUser, user, notification, handleNotification }) => {
       </Togglable>
       <div>
         {blogs.map((blog) => (
-          <Blog key={blog.id} blog={blog} />
+          <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
         ))}
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { useState } from "react";
+import blogService from "../services/blogs";
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, updateBlog }) => {
   const [expanded, setExpanded] = useState(false);
 
   const blogStyle = {
@@ -8,6 +9,12 @@ const Blog = ({ blog }) => {
     borderRadius: 5,
     backgroundColor: "#dad7cd",
     margin: 5,
+  };
+
+  const handleLike = async () => {
+    blog.likes++;
+    await blogService.update(blog);
+    updateBlog(blog);
   };
 
   return (
@@ -20,7 +27,9 @@ const Blog = ({ blog }) => {
         <div>{blog.url}</div>
         <div>
           likes {blog.likes ? blog.likes : 0}
-          <button type="button">like</button>
+          <button type="button" onClick={handleLike}>
+            like
+          </button>
         </div>
         <div>{blog.author}</div>
       </div>
