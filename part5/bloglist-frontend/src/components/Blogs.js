@@ -9,7 +9,9 @@ const Blogs = ({ handleUser, user, notification, handleNotification }) => {
   const [blogs, setBlogs] = useState([]);
 
   useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs));
+    blogService.getAll().then((blogs) => {
+      setBlogs(sortBlogs(blogs));
+    });
   }, []);
 
   const handleLogout = () => {
@@ -23,6 +25,10 @@ const Blogs = ({ handleUser, user, notification, handleNotification }) => {
 
   const updateBlog = (newBlog) => {
     setBlogs(blogs.map((blog) => (blog.id === newBlog.id ? newBlog : blog)));
+  };
+
+  const sortBlogs = (unsortedBlogs) => {
+    return unsortedBlogs.sort((blog1, blog2) => blog2.likes - blog1.likes);
   };
 
   const addBlogRef = useRef();
