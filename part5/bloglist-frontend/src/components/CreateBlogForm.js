@@ -11,8 +11,8 @@ const CreateBlogForm = ({ addBlog, handleNotification, toggleVisibility }) => {
     try {
       const newBlog = { title, author, url };
 
-      await blogService.create(newBlog);
-      addBlog(newBlog);
+      const createdBlog = await blogService.create(newBlog);
+      addBlog(createdBlog);
       resetInputs();
       handleNotification({
         message: `a new blog ${newBlog.title} by ${newBlog.author} added`,

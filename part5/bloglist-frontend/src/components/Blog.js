@@ -21,6 +21,7 @@ const Blog = ({ blog, updateBlog, removeBlog, user }) => {
     const removeMessage = `Remove blog ${blog.title} ${
       blog.author ? ` by ${blog.author}` : ""
     }`;
+
     if (window.confirm(removeMessage)) {
       await blogService.remove(blog);
       removeBlog(blog);
