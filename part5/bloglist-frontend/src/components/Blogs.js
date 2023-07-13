@@ -27,6 +27,10 @@ const Blogs = ({ handleUser, user, notification, handleNotification }) => {
     setBlogs(blogs.map((blog) => (blog.id === newBlog.id ? newBlog : blog)));
   };
 
+  const removeBlog = (blogToRemove) => {
+    setBlogs(blogs.filter((blog) => blog.id !== blogToRemove.id));
+  };
+
   const sortBlogs = (unsortedBlogs) => {
     return unsortedBlogs.sort((blog1, blog2) => blog2.likes - blog1.likes);
   };
@@ -53,7 +57,13 @@ const Blogs = ({ handleUser, user, notification, handleNotification }) => {
       </Togglable>
       <div>
         {blogs.map((blog) => (
-          <Blog key={blog.id} blog={blog} updateBlog={updateBlog} />
+          <Blog
+            key={blog.id}
+            blog={blog}
+            updateBlog={updateBlog}
+            removeBlog={removeBlog}
+            user={user}
+          />
         ))}
       </div>
     </div>
