@@ -5,10 +5,12 @@
         "jest/globals": true
     },
     "extends": ["plugin:react/recommended", "airbnb", "plugin:prettier/recommended"],
-    "plugins": ["react", "prettier"],
+    "plugins": ["react", "prettier", "jest"],
     "parserOptions": {
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
-    "rules": {}
+    "rules": {
+        "no-console": "off"
+    }
 }

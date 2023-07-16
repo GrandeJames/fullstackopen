@@ -1,30 +1,39 @@
 import { render, screen } from '@testing-library/react';
+import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import Blog from './Blog';
 import userEvent from '@testing-library/user-event';
+import Blog from './Blog';
+import blogService from '../services/blogs';
+
+jest.mock('../services/blogs');
 
 describe('<Blog />', () => {
+    const blog = {
+        id: 'id',
+        likes: 0,
+        title: 'title',
+        url: 'url',
+        author: 'author',
+        user: {
+            username: 'username'
+        }
+    };
+    const blogUser = {
+        username: 'username'
+    };
+
+    let updateBlog;
+    let removeBlog;
     let container;
 
+    // Initializing before each test to make sure it is reset
     beforeEach(() => {
-        const blog = {
-            id: 'id',
-            likes: 0,
-            title: 'title',
-            url: 'url',
-            author: 'author',
-            user: {
-                username: 'username'
-            }
-        };
-        const user = {
-            username: 'username'
-        };
-        const updateBlog = jest.fn();
-        const removeBlog = jest.fn();
+        updateBlog = jest.fn();
+        removeBlog = jest.fn();
 
         container = render(
-            <Blog blog={blog} updateBlog={updateBlog} removeBlog={removeBlog} user={user} />
+            // eslint-disable-next-line react/jsx-filename-extension
+            <Blog blog={blog} updateBlog={updateBlog} removeBlog={removeBlog} user={blogUser} />
         ).container;
     });
 
@@ -41,5 +50,23 @@ describe('<Blog />', () => {
 
         await user.click(viewButton);
         expect(element).not.toHaveStyle('display: none');
+    });
+
+    /**
+     * Calling the blogService instead of the prop because http request causes network error
+     * Blog handles the click event internally and calls a service
+     * Solution: https://github.com/nareshbhatia/react-testing-techniques/blob/main/docs/mocking-an-event-handler.md
+     */
+    test('blog update is called twice when clicking like twice', async () => {
+        const user = userEvent.setup();
+
+        const viewButton = screen.getByText('view');
+        await user.click(viewButton);
+
+        const likeButton = screen.getByText('like');
+        await user.click(likeButton);
+        await user.click(likeButton);
+
+        expect(blogService.update).toHaveBeenCalledTimes(2);
     });
 });
