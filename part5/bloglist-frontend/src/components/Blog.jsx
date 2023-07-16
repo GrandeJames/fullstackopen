@@ -31,12 +31,12 @@ function Blog({ blog, updateBlog, removeBlog, user }) {
     };
 
     return (
-        <div key={blog.id} style={blogStyle}>
+        <div key={blog.id} style={blogStyle} className="blog">
             {blog.title} {blog.author}
             <button type="button" onClick={() => setExpanded(!expanded)}>
                 {expanded ? 'hide' : 'view'}
             </button>
-            <div style={{ display: expanded ? '' : 'none' }}>
+            <div style={{ display: expanded ? '' : 'none' }} className="expandedContent">
                 <div>{blog.url}</div>
                 <div>
                     likes {blog.likes ? blog.likes : 0}
