@@ -22,7 +22,7 @@ test('blog is not expanded by default', () => {
     const removeBlog = jest.fn();
 
     const { container } = render(
-        <Blog blog={blog} updateBlog={updateBlog} removeBlog={removeBlog} user={user}></Blog>
+        <Blog blog={blog} updateBlog={updateBlog} removeBlog={removeBlog} user={user} />
     );
 
     const element = container.querySelector('.expandedContent');
