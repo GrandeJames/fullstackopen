@@ -26,13 +26,12 @@ describe('<Blog />', () => {
     let removeBlog;
     let container;
 
-    // Initializing before each test to make sure it is reset
+    // Initializing before each test to reset the variables that should be unique
     beforeEach(() => {
         updateBlog = jest.fn();
         removeBlog = jest.fn();
 
         container = render(
-            // eslint-disable-next-line react/jsx-filename-extension
             <Blog blog={blog} updateBlog={updateBlog} removeBlog={removeBlog} user={blogUser} />
         ).container;
     });
@@ -53,7 +52,7 @@ describe('<Blog />', () => {
     });
 
     /**
-     * Calling the blogService instead of the prop because http request causes network error
+     * Calling the blogService instead of the prop because http request causes a network error
      * Blog handles the click event internally and calls a service
      * Solution: https://github.com/nareshbhatia/react-testing-techniques/blob/main/docs/mocking-an-event-handler.md
      */

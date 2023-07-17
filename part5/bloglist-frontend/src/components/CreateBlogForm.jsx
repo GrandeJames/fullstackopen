@@ -45,6 +45,7 @@ function CreateBlogForm({ addBlog, handleNotification, toggleVisibility }) {
                             type="text"
                             value={title}
                             onChange={({ target }) => setTitle(target.value)}
+                            id="title-input"
                         />
                     </div>
                 </div>
@@ -55,6 +56,7 @@ function CreateBlogForm({ addBlog, handleNotification, toggleVisibility }) {
                             type="text"
                             value={author}
                             onChange={({ target }) => setAuthor(target.value)}
+                            id="author-input"
                         />
                     </div>
                 </div>
@@ -65,6 +67,7 @@ function CreateBlogForm({ addBlog, handleNotification, toggleVisibility }) {
                             type="text"
                             value={url}
                             onChange={({ target }) => setUrl(target.value)}
+                            id="url-input"
                         />
                     </div>
                 </div>

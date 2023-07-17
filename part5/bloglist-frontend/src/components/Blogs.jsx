@@ -24,7 +24,7 @@ function Blogs({ handleUser, user, notification, handleNotification }) {
         handleUser(null);
     };
 
-    const handleAddBlog = (newBlog) => {
+    const addBlog = (newBlog) => {
         setBlogs(blogs.concat(newBlog));
     };
 
@@ -50,7 +50,7 @@ function Blogs({ handleUser, user, notification, handleNotification }) {
             <Togglable buttonLabel="add blog" ref={addBlogRef}>
                 <CreateBlogForm
                     toggleVisibility={() => addBlogRef.current.toggleVisibility()}
-                    addBlog={handleAddBlog}
+                    addBlog={addBlog}
                     handleNotification={handleNotification}
                 />
             </Togglable>
